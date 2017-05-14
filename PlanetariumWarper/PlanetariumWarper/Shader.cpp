@@ -123,6 +123,14 @@ bool Shader::LoadShader(const std::string & filename, GLenum shaderType)
     return loaded;
 }
 
+void Shader::Link()
+{
+    if (m_program)
+    {
+        glLinkProgram(m_program);
+    }
+}
+
 GLuint Shader::GetVertexShaderHandle()
 {
     return m_vertexShader;

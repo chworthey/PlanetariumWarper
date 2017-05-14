@@ -10,8 +10,6 @@ class Program
 {
 private:
     bool m_exit;
-    GLuint m_vertexArrayObject;
-    GLuint m_vertexBufferObject;
     Shader m_shader;
 
 public:

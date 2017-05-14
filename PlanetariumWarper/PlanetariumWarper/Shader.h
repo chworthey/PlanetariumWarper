@@ -14,6 +14,7 @@ public:
     Shader();
     ~Shader();
     bool LoadShader(const std::string &filename, GLenum shaderType);
+    void Link();
 
     GLuint GetVertexShaderHandle();
     GLuint GetFragmentShaderHandle();
