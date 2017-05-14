@@ -44,6 +44,7 @@ int main(int argc, char *args[])
     SDL_Surface *surface = SDL_GetWindowSurface(win);
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // No deprecated gl calls!
+    //SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, config.GetGLMajorVersion());
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, config.GetGLMinorVersion());
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, true);

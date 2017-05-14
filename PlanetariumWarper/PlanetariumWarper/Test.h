@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 #include <GL/glew.h>
 #include "Shader.h"
@@ -10,9 +10,7 @@ class Program
 {
 private:
     bool m_exit;
-    GLuint m_vertexArrayObject;
-    GLuint m_vertexBufferObject;
-    Shader m_shader;
+    GLuint programObject;
 
 public:
     Program();
@@ -26,4 +24,4 @@ public:
 protected:
     void Exit();
     void Unload();
-};
+};*/
