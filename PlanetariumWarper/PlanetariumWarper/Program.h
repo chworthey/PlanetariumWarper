@@ -13,6 +13,7 @@ private:
     bool m_exit;
     Shader m_shader;
     Texture m_texture;
+    Texture m_warpTexture;
     GLuint m_vertexArrayObject;
     GLuint m_vertexBufferObject;
 

@@ -161,6 +161,7 @@
     <None Include="FullscreenQuad.frag" />
     <None Include="FullscreenQuad.vert" />
     <None Include="packages.config" />
+    <None Include="xyuv4k.data" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputState.h" />

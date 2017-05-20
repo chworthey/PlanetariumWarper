@@ -42,6 +42,9 @@
     <None Include="FullscreenQuad.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="xyuv4k.data">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h">
