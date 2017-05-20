@@ -51,18 +51,29 @@ void Program::Load()
 
     GLuint prog = m_shader.GetProgramHandle();
     m_shader.Link();
-    glBindAttribLocation(prog, 0, "vPosition");
+    m_shader.Enable();
 
     float quad[] =
     {
+        // Positions
         -1.0f, 1.0f, // v0 - top left corner
         -1.0f, -1.0f, // v1 - bottom left corner
         1.0f, 1.0f,  // v2 - top right corner
         1.0f, -1.0f,   // v3 - bottom right corner
+
+        // UV's
+        0.0f, 1.0f,
+        0.0f, 0.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f
     };
 
     glGenVertexArrays(1, &m_vertexArrayObject);
     glBindVertexArray(m_vertexArrayObject);
+
+
+    glBindAttribLocation(prog, 0, "vPosition");
+    glBindAttribLocation(prog, 1, "vUV");
 
     // Create the Vertex Buffer Object for the full screen quad.
 
@@ -71,6 +82,7 @@ void Program::Load()
     glBufferData(GL_ARRAY_BUFFER, sizeof(quad), quad, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(8 * sizeof(GL_FLOAT)));
 
     glBindVertexArray(0);
 }
@@ -95,7 +107,8 @@ void Program::Draw()
     m_shader.Enable();
     glBindVertexArray(m_vertexArrayObject);
     glEnableVertexAttribArray(0);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 8);
+    glEnableVertexAttribArray(1);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glBindVertexArray(0);
     m_shader.Disable();
 }

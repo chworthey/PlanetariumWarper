@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Shader.h"
 #include <fstream>
+#include <iostream>
 
 Shader::Shader()
     : m_program(0),
@@ -89,6 +90,10 @@ bool Shader::LoadShader(const std::string & filename, GLenum shaderType)
 
                 if (isCompiled == GL_FALSE)
                 {
+                    char infolog[1024];
+                    glGetShaderInfoLog(shader, 1024, NULL, infolog);
+                    std::cout << "Shader failed to compile. File: " << filename 
+                        << " Error: " << infolog << std::endl;
                     glDeleteShader(shader);
                     shader = 0;
                 }
