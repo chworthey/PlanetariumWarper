@@ -33,7 +33,7 @@ void Program::Initialize(ProgramConfiguration &config)
     config.SetWindowWidth(WINDOW_WIDTH);
     config.SetWindowHeight(WINDOW_HEIGHT);
     config.SetGLMajorVersion(3);
-    config.SetGLMinorVersion(3);
+    config.SetGLMinorVersion(0); // Latest SOIL-supported version
 }
 
 
@@ -48,6 +48,7 @@ void Program::Load()
 
     m_shader.LoadShader("FullscreenQuad.vert", GL_VERTEX_SHADER);
     m_shader.LoadShader("FullscreenQuad.frag", GL_FRAGMENT_SHADER);
+    m_texture.Load("radialgrid.tga");
 
     GLuint prog = m_shader.GetProgramHandle();
     m_shader.Link();
@@ -71,7 +72,6 @@ void Program::Load()
     glGenVertexArrays(1, &m_vertexArrayObject);
     glBindVertexArray(m_vertexArrayObject);
 
-
     glBindAttribLocation(prog, 0, "vPosition");
     glBindAttribLocation(prog, 1, "vUV");
 
@@ -83,6 +83,12 @@ void Program::Load()
 
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(8 * sizeof(GL_FLOAT)));
+
+    glBindTexture(GL_TEXTURE_2D, m_texture.GetTextureHandle());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    GLint samplerLoc = glGetUniformLocation(prog, "texSampler");
+    glUniform1i(samplerLoc, 0);
 
     glBindVertexArray(0);
 }
@@ -104,10 +110,29 @@ void Program::Draw()
     glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
     glClear(GL_COLOR_BUFFER_BIT);
 
+    glEnable(GL_TEXTURE_2D);
+
     m_shader.Enable();
     glBindVertexArray(m_vertexArrayObject);
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
+
+    GLuint tex = m_texture.GetTextureHandle();
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, tex);
+    GLint samplerLoc = glGetUniformLocation(m_shader.GetProgramHandle(), 
+        "texSampler");
+    glUniform1i(samplerLoc, 0);
+
+    //@dad: attention here, we will use shader uniforms to set parameters in
+    // the vert/frag shaders (see FullscreenQuad.vert/frag) like this
+    GLint scaleLoc = glGetUniformLocation(m_shader.GetProgramHandle(),
+        "uvScale");
+    glUniform2f(scaleLoc, 1.0f, -1.0f);
+    GLint offsetLoc = glGetUniformLocation(m_shader.GetProgramHandle(),
+        "uvOffset");
+    glUniform2f(offsetLoc, 0.0f, 1.0f);
+
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glBindVertexArray(0);
     m_shader.Disable();

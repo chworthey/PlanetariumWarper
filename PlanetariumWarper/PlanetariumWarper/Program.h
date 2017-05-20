@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include "Shader.h"
+#include "Texture.h"
 
 struct ProgramConfiguration;
 class InputState;
@@ -11,6 +12,7 @@ class Program
 private:
     bool m_exit;
     Shader m_shader;
+    Texture m_texture;
     GLuint m_vertexArrayObject;
     GLuint m_vertexBufferObject;
 
