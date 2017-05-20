@@ -32,8 +32,8 @@ void Program::Initialize(ProgramConfiguration &config)
     config.SetTitle("Planetarium Warper");
     config.SetWindowWidth(WINDOW_WIDTH);
     config.SetWindowHeight(WINDOW_HEIGHT);
-    config.SetGLMajorVersion(2);
-    config.SetGLMinorVersion(0);
+    config.SetGLMajorVersion(3);
+    config.SetGLMinorVersion(3);
 }
 
 
@@ -50,8 +50,29 @@ void Program::Load()
     m_shader.LoadShader("FullscreenQuad.frag", GL_FRAGMENT_SHADER);
 
     GLuint prog = m_shader.GetProgramHandle();
-    glBindAttribLocation(prog, 0, "vPosition");
     m_shader.Link();
+    glBindAttribLocation(prog, 0, "vPosition");
+
+    float quad[] =
+    {
+        -1.0f, 1.0f, // v0 - top left corner
+        -1.0f, -1.0f, // v1 - bottom left corner
+        1.0f, 1.0f,  // v2 - top right corner
+        1.0f, -1.0f,   // v3 - bottom right corner
+    };
+
+    glGenVertexArrays(1, &m_vertexArrayObject);
+    glBindVertexArray(m_vertexArrayObject);
+
+    // Create the Vertex Buffer Object for the full screen quad.
+
+    glGenBuffers(1, &m_vertexBufferObject);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quad), quad, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glBindVertexArray(0);
 }
 
 void Program::Update(const InputState &inputState)
@@ -64,13 +85,6 @@ void Program::Update(const InputState &inputState)
 
 void Program::Draw()
 {
-    float quad[] =
-    {
-        -1.0f, 1.0f, // v0 - top left corner
-        -1.0f, -1.0f, // v1 - bottom left corner
-        1.0f, 1.0f,  // v2 - top right corner
-        1.0f, -1.0f,   // v3 - bottom right corner
-    };
 
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -79,9 +93,10 @@ void Program::Draw()
     glClear(GL_COLOR_BUFFER_BIT);
 
     m_shader.Enable();
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, quad);
+    glBindVertexArray(m_vertexArrayObject);
     glEnableVertexAttribArray(0);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 8);
+    glBindVertexArray(0);
     m_shader.Disable();
 }
 

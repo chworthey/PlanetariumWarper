@@ -11,6 +11,8 @@ class Program
 private:
     bool m_exit;
     Shader m_shader;
+    GLuint m_vertexArrayObject;
+    GLuint m_vertexBufferObject;
 
 public:
     Program();
