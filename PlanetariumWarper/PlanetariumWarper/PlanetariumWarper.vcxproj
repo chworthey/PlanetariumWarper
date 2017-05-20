@@ -24,7 +24,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{DFB41FF5-6835-4901-BC47-690EA34F7C89}</ProjectGuid>
     <RootNamespace>PlanetariumWarper</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
