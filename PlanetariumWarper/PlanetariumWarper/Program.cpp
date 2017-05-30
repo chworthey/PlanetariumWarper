@@ -10,6 +10,8 @@
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 1024
 
+#define USE_WARP_INPUT_TEX 0
+
 void
 ETB_GL_ERROR_CALLBACK(GLenum        source,
     GLenum        type,
@@ -49,7 +51,10 @@ void Program::Load()
     m_shader.LoadShader("FullscreenQuad.vert", GL_VERTEX_SHADER);
     m_shader.LoadShader("FullscreenQuad.frag", GL_FRAGMENT_SHADER);
     m_texture.LoadImage("radialgrid.tga");
+
+#if USE_WARP_INPUT_TEX
     m_warpTexture.LoadUVSet("xyuv4k.data");
+#endif
 
     GLuint prog = m_shader.GetProgramHandle();
     m_shader.Link();
@@ -91,9 +96,11 @@ void Program::Load()
     GLint samplerLoc = glGetUniformLocation(prog, "texSampler");
     glUniform1i(samplerLoc, 0);
 
+#if USE_WARP_INPUT_TEX
     glBindTexture(GL_TEXTURE_2D, m_warpTexture.GetTextureHandle());
     GLint warpSamplerLoc = glGetUniformLocation(prog, "warpSampler");
     glUniform1i(warpSamplerLoc, 1);
+#endif
 
     glBindVertexArray(0);
 }
@@ -129,12 +136,14 @@ void Program::Draw()
         "texSampler");
     glUniform1i(samplerLoc, 0);
 
+#if USE_WARP_INPUT_TEX
     GLuint warpTex = m_warpTexture.GetTextureHandle();
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, warpTex);
     GLint warpSamplerLoc = glGetUniformLocation(m_shader.GetProgramHandle(),
         "warpSampler");
     glUniform1i(warpSamplerLoc, 1);
+#endif
 
     //@dad: attention here, we will use shader uniforms to set parameters in
     // the vert/frag shaders (see FullscreenQuad.vert/frag) like this
