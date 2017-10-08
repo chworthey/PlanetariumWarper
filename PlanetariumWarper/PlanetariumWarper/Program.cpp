@@ -12,6 +12,8 @@
 
 #define USE_WARP_INPUT_TEX 0
 
+// yo, adrian
+
 void
 ETB_GL_ERROR_CALLBACK(GLenum        source,
     GLenum        type,
