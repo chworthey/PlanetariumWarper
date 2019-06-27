@@ -1,0 +1,13 @@
+#version 330 core
+
+layout (location = 0) in vec4 vPosition;
+layout (location = 1) in vec2 vUV;
+out vec2 UV;
+const vec2 uvScale = vec2($(UV_SCALE_X), $(UV_SCALE_Y));
+const vec2 uvOffset = vec2($(UV_OFFSET_X), $(UV_OFFSET_Y));
+
+void main()
+{
+    gl_Position = vPosition;
+    UV = vUV * uvScale + uvOffset;
+}

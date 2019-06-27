@@ -1,0 +1,5 @@
+C:/Users/pwort/Downloads/freetype-2.10.0.tar/freetype-2.10.0/build/CMakeFiles/PACKAGE.dir
+C:/Users/pwort/Downloads/freetype-2.10.0.tar/freetype-2.10.0/build/CMakeFiles/freetype.dir
+C:/Users/pwort/Downloads/freetype-2.10.0.tar/freetype-2.10.0/build/CMakeFiles/INSTALL.dir
+C:/Users/pwort/Downloads/freetype-2.10.0.tar/freetype-2.10.0/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/pwort/Downloads/freetype-2.10.0.tar/freetype-2.10.0/build/CMakeFiles/ZERO_CHECK.dir

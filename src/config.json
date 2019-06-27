@@ -1,0 +1,15 @@
+{
+  "DomeRadiusMeters": 3.658,
+  "PhaseAngleDegrees": -90.0,
+  "FlipX": false,
+  "FlipY": false,
+  "ProjectorOpeningAngleDegrees": 35.0,
+  "AspectRatio": 1.77778,
+  "TableTiltDegrees": 7.0,
+  "MirrorCenterToDomeCenterMeters": 2.5,
+  "GapDistanceMeters": 1.0,
+  "MirrorRadiusMeters": 0.30,
+  "ProjectorHorizontalDistanceMeters": 0.95,
+  "BottomRowOfPixelsDegrees": 0.1,
+  "OblateSpheroidAxialRatio": 0.99
+}
