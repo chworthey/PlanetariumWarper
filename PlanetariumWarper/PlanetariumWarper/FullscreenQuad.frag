@@ -93,7 +93,7 @@ vec3 getWarpMap(in vec2 screenCoords)
     }
 
     // bisect to a tolerable precision
-    float tol = 1.0e-8;
+    float tol = 1.0e-5;
     float left = v;
     float right = v-R;
     float stat = 1000.0;
@@ -122,7 +122,7 @@ vec3 getWarpMap(in vec2 screenCoords)
 
     vec3 svec = normalize(location * vec3(1, -1, -1));
     float constant = 2.0 * dot(normal, svec);
-    vec3 rvec = constant * (normal - svec);
+    vec3 rvec = constant * normal - svec;
 
     float size = length(rvec);
     // track the outbound ray to the dome.
@@ -153,7 +153,7 @@ vec3 getWarpMap(in vec2 screenCoords)
     }
         
     // proceed by bisection to find Alt/Az on dome
-    tol = 1.0e-8;
+    tol = 1.0e-5;
     left = rzz;
     right = 3.0*S;
     stat = 1000.0;
