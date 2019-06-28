@@ -11,9 +11,9 @@ jobs:
 - job: Windows
   pool:
     vmImage: 'windows-2019'
-
   steps:
   - script: |
+    cd $(Build.SourcesDirectory)
     ls
     mkdir build
     cd build
@@ -22,15 +22,15 @@ jobs:
   - publish: $(Build.SourcesDirectory)/bin
     artifact: drop
 
-- job: Linux
-  pool:
-    vmImage: 'ubuntu-16.04'
-
-  steps:
-  - script: echo Hello, world!
-    displayName: 'Run a one-line script'
-
-  - script: |
-      echo Add other tasks to build, test, and deploy your project.
-      echo See https://aka.ms/yaml
-    displayName: 'Run a multi-line script'
+#- job: Linux
+#  pool:
+#    vmImage: 'ubuntu-16.04'
+#
+#  steps:
+#  - script: echo Hello, world!
+#    displayName: 'Run a one-line script'
+#
+#  - script: |
+#      echo Add other tasks to build, test, and deploy your project.
+#      echo See https://aka.ms/yaml
+#    displayName: 'Run a multi-line script'
