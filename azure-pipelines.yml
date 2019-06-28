@@ -10,13 +10,13 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-  - script: |
-    cd $(Build.SourcesDirectory)
-    ls
-    mkdir build
-    cd build
-    cmake ..
-    cmake --build . --config Relase
+  - script: echo Hello, World!
+#    cd $(Build.SourcesDirectory)
+#    ls
+#    mkdir build
+#    cd build
+#    cmake ..
+#    cmake --build . --config Relase
 #  - publish: $(Build.SourcesDirectory)/bin
 #    artifact: drop
 #- job: Linux
