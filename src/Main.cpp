@@ -99,13 +99,13 @@ void nudge(bool positive) {
     bool ctrlPressed = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT_CONTROL) == GLFW_PRESS;
 
     if (shiftPressed && ctrlPressed) {
-        scalar *= 0.01;
+        scalar *= 0.01f;
     }
     else if (shiftPressed) {
-        scalar *= 0.1;
+        scalar *= 0.1f;
     }
     else if (ctrlPressed) {
-        scalar *= 2;
+        scalar *= 2.0f;
     }
 
     switch (text.GetSelection()) {
@@ -248,7 +248,7 @@ bool makeWindow(bool fullScreen) {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
+        return false;
     }
 
     glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {

@@ -3,7 +3,6 @@
 #include "MathUtils.h"
 #include "ShaderUtils.h"
 #include "StringUtils.h"
-#include <engine/filesystem.h>
 #include <glad/glad.h>
 
 static bool sLibInitialized = false;
@@ -22,7 +21,7 @@ void GLText::Setup()
         sLibInitialized = true;
     }
 
-    if (FT_New_Face(sLib, FileSystem::getPath("resources/Roboto-Regular.ttf").c_str(), 0, &mFace)) {
+    if (FT_New_Face(sLib, "Roboto-Regular.ttf", 0, &mFace)) {
         std::cout << "Could not open font" << std::endl;
         return;
     }

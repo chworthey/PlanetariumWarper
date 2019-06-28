@@ -52,7 +52,6 @@ else()
   set(LIBS )
 endif(WIN32)
 
-configure_file(configuration/root_directory.h.in configuration/root_directory.h)
 include_directories(${CMAKE_BINARY_DIR}/configuration)
 
 # first create relevant static libraries requried for other projects
@@ -95,15 +94,17 @@ elseif(APPLE)
     set_target_properties(${NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_BINARY_DIR}/bin")
 endif(WIN32)
 # copy shader files to build directory
-file(GLOB SHADERS
+file(GLOB RESOURCES
           "src/*.vs"
           "src/*.fs"
           "src/*.gs"
           "src/*.json"
           "src/*.vs.in"
           "src/*.fs.in"
+          "resources/*.ttf"
+          "resources/*.tga"
 )
-foreach(SHADER ${SHADERS})
+foreach(SHADER ${RESOURCES})
     if(WIN32)
         add_custom_command(TARGET ${NAME} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SHADER} $<TARGET_FILE_DIR:${NAME}>)
     elseif(UNIX AND NOT APPLE)
