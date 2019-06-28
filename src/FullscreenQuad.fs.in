@@ -20,6 +20,9 @@ uniform float ba;  // b/a, the axial ratio for the oblate spheroid
 // Dome:
 uniform float M; // meters.  Radial distance of mirror center to dome center
 uniform float H;    // meters. gap from bottom of dome to mirror center
+
+uniform bool renderWarp; // Whether it should display warp information instead of applying warp
+
 const float S = $(DOME_RADIUS);  // meters. dome radius 
 // Output:
 const float phaseangle = $(PHASE_ANGLE) * a2rad;    // I /think/ this is correct
@@ -194,5 +197,10 @@ vec3 getWarpMap(in vec2 screenCoords)
 void main()
 {
     vec3 warp = getWarpMap(UV);
-    color = vec4(texture(texSampler, warp.rg).rgb * warp.b, 1.0);
+    if (renderWarp) {
+        color = vec4(warp, 1.0);
+    }
+    else {
+        color = vec4(texture(texSampler, warp.rg).rgb * warp.b, 1.0);
+    }
 }

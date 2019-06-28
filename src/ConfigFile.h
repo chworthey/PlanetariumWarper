@@ -5,6 +5,7 @@
 class ConfigFile {
 public:
     void loadFromFile(const std::string& filename);
+    void saveToFile(const std::string& filename);
 
     // Initialization-only constants
     float getDomeRadius() const;
@@ -14,6 +15,7 @@ public:
     float getProjectorOpeningAngle() const;
     float getAspectRatio() const;
     float getTableTilt() const;
+    int getExportSize() const;
 
     // Runtime variable
     float getMirrorCenterToDomeCenter() const;
@@ -42,6 +44,7 @@ private:
     float mProjectorOpeningAngle;
     float mAspectRatio;
     float mTableTilt;
+    int mExportSize;
     float mMirrorCenterToDomeCenter;
     float mGapDistance;
     float mMirrorRadius;

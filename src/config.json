@@ -6,6 +6,7 @@
   "ProjectorOpeningAngleDegrees": 35.0,
   "AspectRatio": 1.77778,
   "TableTiltDegrees": 7.0,
+  "ExportSize":  100,
   "MirrorCenterToDomeCenterMeters": 2.5,
   "GapDistanceMeters": 1.0,
   "MirrorRadiusMeters": 0.30,

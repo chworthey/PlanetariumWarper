@@ -17,12 +17,36 @@ void ConfigFile::loadFromFile(const std::string &filename)
     mProjectorOpeningAngle = root["ProjectorOpeningAngleDegrees"].asFloat();
     mAspectRatio = root["AspectRatio"].asFloat();
     mTableTilt = root["TableTiltDegrees"].asFloat();
+    mExportSize = root["ExportSize"].asInt();
     mMirrorCenterToDomeCenter = root["MirrorCenterToDomeCenterMeters"].asFloat();
     mGapDistance = root["GapDistanceMeters"].asFloat();
     mMirrorRadius = root["MirrorRadiusMeters"].asFloat();
     mProjectorHorizontalDistance = root["ProjectorHorizontalDistanceMeters"].asFloat();
     mBottomRowOfPixels = root["BottomRowOfPixelsDegrees"].asFloat();
     mOblateSpheroidAxialRatio = root["OblateSpheroidAxialRatio"].asFloat();
+}
+
+void ConfigFile::saveToFile(const std::string& filename)
+{
+    Json::Value root;
+    root["DomeRadiusMeters"] = mDomeRadius;
+    root["PhaseAngleDegrees"] = mPhaseAngle;
+    root["FlipX"] = mFlipX;
+    root["FlipY"] = mFlipY;
+    root["ProjectorOpeningAngleDegrees"] = mProjectorOpeningAngle;
+    root["AspectRatio"] = mAspectRatio;
+    root["TableTiltDegrees"] = mTableTilt;
+    root["ExportSize"] = mExportSize;
+    root["MirrorCenterToDomeCenterMeters"] = mMirrorCenterToDomeCenter;
+    root["GapDistanceMeters"] = mGapDistance;
+    root["MirrorRadiusMeters"] = mMirrorRadius;
+    root["ProjectorHorizontalDistanceMeters"] = mProjectorHorizontalDistance;
+    root["BottomRowOfPixelsDegrees"] = mBottomRowOfPixels;
+    root["OblateSpheroidAxialRatio"] = mOblateSpheroidAxialRatio;
+
+    std::ofstream file(filename);
+    file << root;
+    file.close();
 }
 
 float ConfigFile::getMirrorRadius() const
@@ -98,6 +122,11 @@ float ConfigFile::getAspectRatio() const
 float ConfigFile::getTableTilt() const
 {
     return mTableTilt;
+}
+
+int ConfigFile::getExportSize() const
+{
+    return mExportSize;
 }
 
 float ConfigFile::getMirrorCenterToDomeCenter() const
