@@ -30,7 +30,7 @@ void GLText::Setup()
 
     std::string textVertexCode = readShaderFile("Text.vs");
     std::string textFragCode = readShaderFile("Text.fs");
-    mShader = std::make_unique<Shader>(textVertexCode.c_str(), textFragCode.c_str());
+    mShader = std::unique_ptr<Shader>(new Shader(textVertexCode.c_str(), textFragCode.c_str()));
 
     glGenVertexArrays(1, &mVAO);
 

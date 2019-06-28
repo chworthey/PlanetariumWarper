@@ -43,7 +43,7 @@ void GLWarper::Setup()
 
     // build and compile our shader program
     // ------------------------------------
-    mShader = std::make_unique<Shader>(vertexCode.c_str(), fragmentCode.c_str());
+    mShader = std::unique_ptr<Shader>(new Shader(vertexCode.c_str(), fragmentCode.c_str()));
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
