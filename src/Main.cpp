@@ -110,10 +110,10 @@ void nudge(bool positive) {
 
     switch (text.GetSelection()) {
     case ValueSelection::MirrorRadius:
-        config->setMirrorRadius(CLAMP(config->getMirrorRadius() + 0.005f * scalar, 0.1f, 0.5f));
+        config->setMirrorRadius(CLAMP(config->getMirrorRadius() + 0.005f * scalar, 0.1f, std::fminf(0.5f, config->getProjectorHorizontalDistance() - 0.3f)));
         break;
     case ValueSelection::ProjHorizDistance:
-        config->setProjectorHorizontalDistance(CLAMP(config->getProjectorHorizontalDistance() + 0.02f * scalar, 0.4f, 2.0f));
+        config->setProjectorHorizontalDistance(CLAMP(config->getProjectorHorizontalDistance() + 0.02f * scalar, std::fmaxf(0.4f, config->getMirrorRadius() + 0.3f), 2.0f));
         break;
     case ValueSelection::BottomRowPixels:
         // TODO: BUG!!! Chugs when negative. Setting to only positive right now.
