@@ -16,9 +16,9 @@ jobs:
       mkdir build
       cd build
       cmake ..
-      cmake --build . --config Relase
-#  - publish: $(Build.SourcesDirectory)/bin
-#    artifact: drop
+      cmake --build . --config Release
+  - publish: $(Build.SourcesDirectory)/bin
+    artifact: drop
 #- job: Linux
 #  pool:
 #    vmImage: 'ubuntu-16.04'
