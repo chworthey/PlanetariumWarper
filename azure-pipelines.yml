@@ -1,19 +1,33 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
+# Documentation:
 # https://aka.ms/yaml
 
 trigger:
 - master
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+pr:
+- master
+jobs:
+- job: Windows
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - script: |
+      cd $(Build.SourcesDirectory)
+      ls
+      mkdir build
+      cd build
+      cmake -G "Visual Studio 16 2019" -A Win32 ..
+      cmake --build . --config Release
+  - publish: $(Build.SourcesDirectory)/bin
+    artifact: drop
+#- job: Linux
+#  pool:
+#    vmImage: 'ubuntu-16.04'
+#
+#  steps:
+#  - script: echo Hello, world!
+#    displayName: 'Run a one-line script'
+#
+#  - script: |
+#      echo Add other tasks to build, test, and deploy your project.
+#      echo See https://aka.ms/yaml
+#    displayName: 'Run a multi-line script'
