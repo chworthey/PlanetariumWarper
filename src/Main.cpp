@@ -117,7 +117,8 @@ void nudge(bool positive) {
         break;
     case ValueSelection::BottomRowPixels:
         // TODO: BUG!!! Chugs when negative. Setting to only positive right now.
-        config->setBottomRowOfPixels(CLAMP(config->getBottomRowOfPixels() + 0.2f * scalar, 0.1f, 10.0f));
+		//  July 2: dad attempting to fix
+        config->setBottomRowOfPixels(CLAMP(config->getBottomRowOfPixels() + 0.2f * scalar, -25.0f, 25.0f));
         break;
     case ValueSelection::OblateSpheroidAxialRatio:
         config->setOblateSpheroidAxialRatio(CLAMP(config->getOblateSpheroidAxialRatio() + 0.001f * scalar, 0.9f, 0.999999f));

@@ -50,6 +50,7 @@ void oblate(in float a, in float x, in float y, in float z, out float mu, out fl
     float d2 = sqrt( pow(rho - a,2) +z*z);
     mu = acosh( (d1+d2)/(2.0*a));
     nu = acos( (d1-d2)/(2.0*a));
+	if (nu*z < 0.0)	{ nu = -1.0 * nu; } // make nu's sign agree with z's
 }
 
 // returns a cartesian vector that is local to the oblate spheroid surface
@@ -87,7 +88,10 @@ vec3 getWarpMap(in vec2 screenCoords)
     // outside/inside parameter oi
     // To sphere-centered origin: x = (v - dd) ; y = x1 ; z = x2
     float mu1,nu1,phi1;
-    oblate(a,0.0,x1,x2, mu1, nu1, phi1);
+    oblate(a,0.0,x1,x2, mu1, nu1, phi1);  // cartesian to oblate-spheroid coords
+	                                      // mu is a generalized r
+										  // nu is a generalized theta (polar coord)
+										  // phi is the same as regular spherical phi
 
     if (mu1 > mu)
     {
@@ -149,9 +153,13 @@ vec3 getWarpMap(in vec2 screenCoords)
     vec3 location1 = location + rzz * rvec;
 
     rtmp = length(location1);
-    if (rvec.z < 0.0 || rtmp > S)
+    if (rvec.z < 0.0 || rtmp > S)   // trap rays that trend downward or scream off
     {
         intensity = 0;
+		warp.x = 1.0;     // 4 lines by Dad July 2 - trying trap this error
+		warp.y = 1.0;
+		warp.z = intensity;
+		return warp;
     }
         
     // proceed by bisection to find Alt/Az on dome
