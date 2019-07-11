@@ -48,8 +48,13 @@ void oblate(in float a, in float x, in float y, in float z, out float mu, out fl
     float rho = sqrt(x*x + y*y);
     float d1 = sqrt( pow(rho + a,2) +z*z);
     float d2 = sqrt( pow(rho - a,2) +z*z);
-    mu = acosh( (d1+d2)/(2.0*a));
-    nu = acos( (d1-d2)/(2.0*a));
+	float x9 = (d1+d2)/(2.0*a);
+	if ( x9 < 1.0 ) { x9 = 1.0; }  // and also print an error message?
+    mu = acosh( x9 );
+
+	float x8 = (d1-d2)/(2.0*a);
+	if (x8 > 1.00) {x8 = 1.0;}  // this can happen due to roundoff error, and breaks acos
+    nu = acos( x8 );
 	if (nu*z < 0.0)	{ nu = -1.0 * nu; } // make nu's sign agree with z's
 }
 
