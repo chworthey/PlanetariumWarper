@@ -76,16 +76,16 @@ void exportData() {
 
     remakeWindow = true;
 
-    std::ofstream file("output.xyuv");
+    std::ofstream file("output.xyuv.data");
 
     file << 2 << std::endl;
     file << config->getExportSize() << " " << config->getExportSize() << std::endl;
     
     for (int n = 0; n < config->getExportSize() * config->getExportSize(); ++n) {
-        file << (bytes[n * 3] * 2.0f - 1.0f) * config->getAspectRatio() << " ";
-        file << (bytes[n * 3 + 1] * 2.0f - 1.0f) << " ";
-        file << ((n % config->getExportSize()) / static_cast<float>(config->getExportSize())) << " " ;
-        file << ((n / config->getExportSize()) / static_cast<float>(config->getExportSize())) << " ";
+		file << (((n % config->getExportSize()) / static_cast<float>(config->getExportSize())) * 2.0f - 1.0f) * config->getAspectRatio() << " ";
+		file << ((n / config->getExportSize()) / static_cast<float>(config->getExportSize())) * 2.0f - 1.0f << " ";
+        file << bytes[n * 3] << " ";
+        file << bytes[n * 3 + 1] << " ";
         file << bytes[n * 3 + 2] << std::endl;
     }
 
